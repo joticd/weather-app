@@ -1,5 +1,5 @@
 import React from 'react';
-import Search from './Search';
+import SearchBar from './SearchBar';
 
 const Header:React.FC = () => {
     return (
@@ -9,7 +9,7 @@ const Header:React.FC = () => {
                     <h1 className="mb-5">WEATHER APP</h1>
                     <h4 className="mb-5">SEARCH FOR CURRENT WEATHER DATA</h4>
                 </div>
-                <Search />
+                <SearchBar />
             </div>
         </div>
     );
