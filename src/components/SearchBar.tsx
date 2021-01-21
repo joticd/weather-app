@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 
-const SearchBar:React.FC = () => {
+type Props ={
+    setStateSearch: React.Dispatch<React.SetStateAction<string>>
+}
+
+const SearchBar:React.FC<Props> = ({setStateSearch}) => {
 
     const [term, setTerm] = useState<string>('');
 
     const onInputChange = (event:React.ChangeEvent<HTMLInputElement>) =>{
         setTerm(event.target.value);
-
-        console.log("aaaaaaaaaa")
-    }
+    };
 
     const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
        event.preventDefault();
-        console.log("bbbbbbbbbbbb", term)
-    }
-
-
-
+       setStateSearch(term);
+    };
 
     return (
         <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
