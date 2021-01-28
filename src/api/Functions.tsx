@@ -1,10 +1,12 @@
 import weather from './api';
 
-export const getWeatherData = async (lat:number, long: number) => {
-    const dataW = await weather.get('/forecast', {
+export const getWeatherDataApi = async (name:string, isWeather=true) => {
+    const partUrl = isWeather ? 'weather' : 'forecast';
+    const dataW = await weather.get(`/${partUrl}`,{
         params:{
-            lat,
-            long
+            q:name
         }
     });
+
+    return dataW;
 }

@@ -7,11 +7,9 @@ type Props ={
 const SearchBar:React.FC<Props> = ({setStateSearch}) => {
 
     const [term, setTerm] = useState<string>('');
-
     const onInputChange = (event:React.ChangeEvent<HTMLInputElement>) =>{
         setTerm(event.target.value);
     };
-
     const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
        event.preventDefault();
        setStateSearch(term);
