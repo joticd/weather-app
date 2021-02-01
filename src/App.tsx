@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-
 import Header from './components/Header';
 import WeatherLists from './components/WeatherLists';
-import { getWeatherData, places, returnPlaces } from './helpers/Functions';
+import { getWeatherMultiData, returnPlaces } from './helpers/Functions';
 import './style/App.scss';
+
 
 const App : React.FC = () =>{
 
@@ -14,7 +14,8 @@ const App : React.FC = () =>{
   useEffect(() => {
     if(resultSearch){
     }else{
-      returnPlaces();
+      const places = returnPlaces();
+      getWeatherMultiData(places);
     }
     
     // getWeatherData(resultSearch, setWeatherData);

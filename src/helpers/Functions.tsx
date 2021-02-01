@@ -1,4 +1,4 @@
-import {getWeatherDataApi} from '../api/Functions';
+import { getWeatherDataApi } from '../api/Functions';
 
 export const places = ["Beograd", "Novi Sad", "Niš", "Kragujevac", "Priština", "Subotica", "Zrenjanin", "Pančevo", "Čačak", "Kruševac", "Kraljevo", "Novi Pazar", "Smederevo", "Leskovac", "Užice", "Vranje", "Valjevo", "Šabac", "Sombor", "Požarevac", "Pirot", "Zaječar", "Kikinda", "Sremska Mitrovica", "Jagodina", "Vršac", "Bor", "Prokuplje", "Loznica"];
 
@@ -21,5 +21,23 @@ export const getWeatherData = async (name:string, setWeatherData:any) => {
 
     console.log(data)
     return data;
+    
+}
+
+export const getWeatherMultiData = async (places:string[]) => {
+    const currentData:any = [];
+    await Promise.all(places.map(async place => {
+        const {data} = await getWeatherDataApi(place);
+        const {name, main, weather} = data;
+        const weatherData = weather[0];
+        currentData.push({name, main, weatherData})
+        console.log(weatherData)
+    }));
+    // let isWeather = name.length>0 ? true : false;
+    // let nameArg = name.length>0 ? name : "Lazarevac";
+    // let data = await getWeatherDataApi(nameArg, isWeather);
+
+    console.log(currentData);
+    return currentData;
     
 }
