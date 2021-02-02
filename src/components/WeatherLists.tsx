@@ -23,9 +23,10 @@ const WeatherLists:React.FC<Props> = ({weatherDataMulti}) => {
     }
     return (
         <div className="container">
-            <div className="row">
+            <div className="row text-center">
                 {cityWth}
             </div>
+        
         </div>
     )
 }

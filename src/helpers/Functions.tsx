@@ -29,9 +29,10 @@ export const getWeatherMultiData = async (places:string[], setWeatherDataMulti:R
     const currentData:WeatherForcast[] = [];
     await Promise.all(places.map(async place => {
         const {data} = await getWeatherDataApi(place);
-        const {name, main, weather} = data;
+        console.log(data)
+        const {name, main, weather, wind} = data;
         const weatherData = weather[0];
-        currentData.push({name, main, weatherData});
+        currentData.push({name, main, weatherData, wind});
     }));
     setWeatherDataMulti(currentData);
     

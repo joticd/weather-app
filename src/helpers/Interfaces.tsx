@@ -8,6 +8,11 @@ interface Main {
     temp_min: number
 }
 
+interface Wind {
+    deg: number,​​
+    speed: number
+}
+
 interface Weather {
     description: string,
     icon: string,
@@ -18,5 +23,6 @@ interface Weather {
 export interface WeatherForcast {
     name: string,
     main: Main,
-    weatherData: Weather
+    weatherData: Weather,
+    wind : Wind
 }
