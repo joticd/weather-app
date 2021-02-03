@@ -15,13 +15,8 @@ export const returnPlaces = () =>{
 }
 
 
-export const getWeatherData = async (name:string, setWeatherData:any) => {
-    let isWeather = name.length>0 ? true : false;
-    let nameArg = name.length>0 ? name : "Lazarevac";
-    let data = await getWeatherDataApi(nameArg, isWeather);
-
-    console.log(data)
-    return data;
+export const getWeatherData = async (name:string/*, setWeatherData:any*/) => {
+    console.log(name)
     
 }
 

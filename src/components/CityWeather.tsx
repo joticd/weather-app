@@ -8,7 +8,6 @@ type Props = {
 
 const CityWeather :React.FC<Props> = ({weather}) => {
     const {name, main, weatherData, wind} = weather;
-    console.log( weatherData.main)
     return (        
         <div className="col-lg-3">
             <div className="mx-auto mb-5 mb-lg-0 mb-lg-3">
@@ -19,7 +18,7 @@ const CityWeather :React.FC<Props> = ({weather}) => {
                 <p className="lead mb-0">Perception: {`${main.feels_like}`}</p>
                 <p className="lead mb-0">Humidity: {`${main.humidity}`}</p>
                 <p className="lead mb-0">Wind: {`${wind.speed}`}</p>
-                <h2>{main.temp}</h2>
+                <h2>{`${main.temp}${'\u00b0'}C`}</h2>
                 <h3>{`${name}`}</h3>
             </div>
         </div>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import CityForecast from './components/CityForecast';
 import Header from './components/Header';
 import WeatherLists from './components/WeatherLists';
-import { getWeatherMultiData, returnPlaces } from './helpers/Functions';
+import { getWeatherData, getWeatherMultiData, returnPlaces } from './helpers/Functions';
 import { WeatherForcast } from './helpers/Interfaces';
 import './style/App.scss';
 
@@ -14,13 +15,12 @@ const App : React.FC = () =>{
 
   useEffect(() => {
     if(resultSearch){
+      getWeatherData(resultSearch);
     }else{
       const places = returnPlaces();
       getWeatherMultiData(places, setWeatherDataMulti);
     }
   }, [resultSearch]);
-
-  console.log(weatherDataMulti)
 
   return (
     <div>
@@ -28,6 +28,7 @@ const App : React.FC = () =>{
         <Header setResultSearch={setResultSearch}/>
       </div>
       <div className="container">
+        <CityForecast />
         <WeatherLists weatherDataMulti={weatherDataMulti} />
       </div>
 
