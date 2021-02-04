@@ -15,18 +15,34 @@ export const returnPlaces = () =>{
 }
 
 
-export const getWeatherData = async (name:string/*, setWeatherData:any*/) => {
-    console.log(name)
+const getWeatherData = async (place:string/*, setWeatherData:any*/) => {
+    const {data} = await getWeatherDataApi(place);
+    const {name, main, weather, wind} = data;
+    const weatherData = weather[0];
+    return {name, main, weatherData, wind};
+    
+}
+
+const createList = (list:any[]) => {
+    const newList = list.map(element =>{
+        return {dt:element.dt, dt_txt:element.dt_txt, main:element.main, weather:element.weather[0], wind:element.wind} 
+    })
+    console.log(newList)
+}
+
+export const getWeatherSingleData = async (place:string/*, setWeatherData:any*/) => {
+    const {name, main, weatherData, wind} = await getWeatherData(place);
+    const {data} = await getWeatherDataApi(place, false);
+    const listRaw = data.list;
+    createList(listRaw);
+    // console.log(listRaw)
     
 }
 
 export const getWeatherMultiData = async (places:string[], setWeatherDataMulti:React.Dispatch<React.SetStateAction<WeatherForcast[] | null>>) => {
     const currentData:WeatherForcast[] = [];
     await Promise.all(places.map(async place => {
-        const {data} = await getWeatherDataApi(place);
-        console.log(data)
-        const {name, main, weather, wind} = data;
-        const weatherData = weather[0];
+        const {name, main, weatherData, wind} = await getWeatherData(place);
         currentData.push({name, main, weatherData, wind});
     }));
     setWeatherDataMulti(currentData);

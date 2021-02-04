@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CityForecast from './components/CityForecast';
 import Header from './components/Header';
 import WeatherLists from './components/WeatherLists';
-import { getWeatherData, getWeatherMultiData, returnPlaces } from './helpers/Functions';
+import { getWeatherMultiData, getWeatherSingleData, returnPlaces } from './helpers/Functions';
 import { WeatherForcast } from './helpers/Interfaces';
 import './style/App.scss';
 
@@ -15,7 +15,7 @@ const App : React.FC = () =>{
 
   useEffect(() => {
     if(resultSearch){
-      getWeatherData(resultSearch);
+      getWeatherSingleData(resultSearch);
     }else{
       const places = returnPlaces();
       getWeatherMultiData(places, setWeatherDataMulti);
