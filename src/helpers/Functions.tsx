@@ -1,4 +1,4 @@
-import { getWeatherDataApi } from '../api/Functions';
+import { getOneCallDataApi, getWeatherDataApi } from '../api/Functions';
 import { WeatherForcast } from './Interfaces';
 
 export const places = ["Beograd", "Novi Sad", "Niš", "Kragujevac", "Priština", "Subotica", "Zrenjanin", "Pančevo", "Čačak", "Kruševac", "Kraljevo", "Novi Pazar", "Smederevo", "Leskovac", "Užice", "Vranje", "Valjevo", "Šabac", "Sombor", "Požarevac", "Pirot", "Zaječar", "Kikinda", "Sremska Mitrovica", "Jagodina", "Vršac", "Bor", "Prokuplje", "Loznica"];
@@ -15,27 +15,27 @@ export const returnPlaces = () =>{
 }
 
 
-const getWeatherData = async (place:string/*, setWeatherData:any*/) => {
+const getWeatherData = async (place:string) => {
     const {data} = await getWeatherDataApi(place);
-    const {name, main, weather, wind} = data;
+    const {name, main, weather, wind, coord} = data;
     const weatherData = weather[0];
-    return {name, main, weatherData, wind};
+    return {name, main, weatherData, wind, coord};
     
 }
 
 const createList = (list:any[]) => {
-    const newList = list.map(element =>{
-        return {dt:element.dt, dt_txt:element.dt_txt, main:element.main, weather:element.weather[0], wind:element.wind} 
-    })
-    console.log(newList)
+    const newList = list.map((element, index) =>{
+        if(index>0 && index<4)
+            return {dt:element.dt, temp:element.temp, weather:element.weather[0]};
+    });
+    return newList.filter(listData=>listData);
 }
 
 export const getWeatherSingleData = async (place:string/*, setWeatherData:any*/) => {
-    const {name, main, weatherData, wind} = await getWeatherData(place);
-    const {data} = await getWeatherDataApi(place, false);
-    const listRaw = data.list;
-    createList(listRaw);
-    // console.log(listRaw)
+    const {name, main, weatherData, wind, coord} = await getWeatherData(place);
+    const {data} = await getOneCallDataApi(coord.lat, coord.lon);
+    const newList = createList(data.daily);
+    console.log(newList);
     
 }
 

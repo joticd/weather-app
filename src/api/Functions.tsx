@@ -11,3 +11,16 @@ export const getWeatherDataApi = async (name:string, isWeather=true) => {
 
     return dataW;
 }
+
+export const getOneCallDataApi = async (lat:number, lon:number) => {
+  
+    const dataW = await weather.get(`/onecall`,{
+        params:{
+            lat,
+            lon,
+            units:"metric"
+        }
+    });
+
+    return dataW;
+}
