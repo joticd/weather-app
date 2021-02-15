@@ -1,5 +1,5 @@
 import { getOneCallDataApi, getWeatherDataApi } from '../api/Functions';
-import { WeatherForcast } from './Interfaces';
+import { CityForecastData, WeatherForcast, WeatherList } from './Interfaces';
 
 export const places = ["Beograd", "Novi Sad", "Niš", "Kragujevac", "Priština", "Subotica", "Zrenjanin", "Pančevo", "Čačak", "Kruševac", "Kraljevo", "Novi Pazar", "Smederevo", "Leskovac", "Užice", "Vranje", "Valjevo", "Šabac", "Sombor", "Požarevac", "Pirot", "Zaječar", "Kikinda", "Sremska Mitrovica", "Jagodina", "Vršac", "Bor", "Prokuplje", "Loznica"];
 
@@ -23,19 +23,25 @@ const getWeatherData = async (place:string) => {
     
 }
 
-const createList = (list:any[]) => {
-    const newList = list.map((element, index) =>{
-        if(index>0 && index<4)
-            return {dt:element.dt, temp:element.temp, weather:element.weather[0]};
+const createList = (list:any[]): WeatherList[] => {
+    const cloneList = [...list];
+    const splicelist = cloneList.splice(0,4);
+    const newList : WeatherList[] = splicelist.map(listData=>{
+        return {dt:listData.dt, temp:listData.temp, weather:listData.weather[0]};
     });
-    return newList.filter(listData=>listData);
+    return newList;
 }
 
-export const getWeatherSingleData = async (place:string/*, setWeatherData:any*/) => {
+export const getWeatherSingleData = async (place:string, setWeatherDataSingle: React.Dispatch<React.SetStateAction<CityForecastData | null>>) => {
+    const cityForecast = {} as CityForecastData;
     const {name, main, weatherData, wind, coord} = await getWeatherData(place);
     const {data} = await getOneCallDataApi(coord.lat, coord.lon);
     const newList = createList(data.daily);
-    console.log(newList);
+    cityForecast.current = {name, main, weatherData, wind};    
+    cityForecast.nextDay = newList.map(element=>{
+        return {dt: element.dt, icon:element.weather.icon, max:element.temp.max, min:element.temp.min}
+    });
+    setWeatherDataSingle(cityForecast);
     
 }
 
@@ -47,4 +53,10 @@ export const getWeatherMultiData = async (places:string[], setWeatherDataMulti:R
     }));
     setWeatherDataMulti(currentData);
     
+}
+
+export const getDay = (dt:number) =>{
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];    
+    const dayDt = new Date(dt*1000);
+    return days[dayDt.getDay()]
 }

@@ -3,19 +3,19 @@ import CityForecast from './components/CityForecast';
 import Header from './components/Header';
 import WeatherLists from './components/WeatherLists';
 import { getWeatherMultiData, getWeatherSingleData, returnPlaces } from './helpers/Functions';
-import { WeatherForcast } from './helpers/Interfaces';
+import { CityForecastData, WeatherForcast } from './helpers/Interfaces';
 import './style/App.scss';
 
 
 const App : React.FC = () =>{
 
   const [resultSearch, setResultSearch] = useState<string>('');
-  const [weatherDataSingle, setWeatherDataSingle] = useState<any>(null);
+  const [weatherDataSingle, setWeatherDataSingle] = useState<CityForecastData | null>(null);
   const [weatherDataMulti, setWeatherDataMulti] = useState<WeatherForcast[] | null>(null);
 
   useEffect(() => {
     if(resultSearch){
-      getWeatherSingleData(resultSearch);
+      getWeatherSingleData(resultSearch, setWeatherDataSingle);
     }else{
       const places = returnPlaces();
       getWeatherMultiData(places, setWeatherDataMulti);
@@ -28,8 +28,9 @@ const App : React.FC = () =>{
         <Header setResultSearch={setResultSearch}/>
       </div>
       <div className="container">
-        <CityForecast />
-        <WeatherLists weatherDataMulti={weatherDataMulti} />
+        {weatherDataSingle? <CityForecast weatherDataSingle={weatherDataSingle} /> : <WeatherLists weatherDataMulti={weatherDataMulti} />}
+        {/* <CityForecast weatherDataSingle={weatherDataSingle} />
+        <WeatherLists weatherDataMulti={weatherDataMulti} /> */}
       </div>
 
     </div>

@@ -12,7 +12,7 @@ const CityWeather :React.FC<Props> = ({weather}) => {
         <div className="col-lg-3">
             <div className="mx-auto mb-5 mb-lg-0 mb-lg-3">
                 <div className="d-flex">
-                    <img className="mx-auto" src={`http://openweathermap.org/img/w/${weatherData.icon}.png`} />
+                    <img className="mx-auto" alt="" src={`http://openweathermap.org/img/w/${weatherData.icon}.png`} />
                 </div>
                 <h4>{weatherData.main}</h4>
                 <p className="lead mb-0">Perception: {`${main.feels_like}`}</p>
