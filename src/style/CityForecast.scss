@@ -1,0 +1,64 @@
+
+.cityfcast{
+    p{
+        margin:0;
+        color: #4d4d4d;
+    }
+
+    .cityfcast_img{
+        img{
+            width: 100px;
+        }
+    }        
+
+    @media (min-width: 768px) {
+        .cityfcast_img{
+            float: right;
+        }
+        .cityfcast_next{
+            float: left;
+        }
+    }
+    .temperature-current{
+        h2{
+            margin: 0;
+            font-size: 3.5rem;
+            line-height: 3rem;
+            color: #0e8ea6;
+        }
+    }
+    .temperature-maxmin{
+        margin-left: 1.5rem;
+        text-align: left;
+        line-height: 1.6rem;
+        // padding: 0.3rem;
+        color: #4d4d4d;
+        p{
+            font-size: 1.6rem;
+        }
+    }
+    .cityfcast-data{
+        align-items: center;
+        text-align: center;
+    }
+    .cityfcast-data__container{
+        display: inline-block;
+    }
+    .cityfcast-data__prop{
+        align-items: baseline;
+        margin-top: 1rem;
+        h5{            
+            font-size: 1.6rem;
+            color: #0e8ea6;
+            margin: 0;
+        }
+    }
+    .cityfcast-data__ceter{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    
+    
+}

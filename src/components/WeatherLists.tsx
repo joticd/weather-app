@@ -16,7 +16,6 @@ const getWeather = (weatherDataMulti : WeatherForcast[]): JSX.Element[]=> {
   }
 
 const WeatherLists:React.FC<Props> = ({weatherDataMulti}) => {
-    console.log(weatherDataMulti)
     let cityWth: JSX.Element[] | null  = null;
     if(weatherDataMulti){
         cityWth = getWeather(weatherDataMulti);

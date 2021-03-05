@@ -1,5 +1,6 @@
 import React from 'react';
 import { getDay } from '../helpers/Functions';
+import '../style/NextDay.scss';
 
 type Props = {
     max:number,
@@ -12,20 +13,22 @@ type Props = {
 const NextDay:React.FC<Props> = ({max, min, dt, icon}) => {
     const day = getDay(dt);
     return (
-        <div className="row">
-            <div className="col-md-3">
-                <div className="d-flex">
-                    <img className="mx-auto" alt="" src={`http://openweathermap.org/img/w/${icon}.png`} />
-                </div>
+        
+        <div className="d-flex nextDay">
+            <div className="nextDay_img">
+                <img alt="" src={`http://openweathermap.org/img/w/${icon}.png`} />
+
             </div>
-            <div className="col-md-9">
+            <div className="nextDay_data">
                 {day}
-                <div className="d-flex flex-row bd-highlight mb-3">
-                    <div className="p-2 bd-highlight">{max}</div>
-                    <div className="p-2 bd-highlight">{min}</div>
+                <div className="d-flex">
+                    <div className="nextDay_max">{`${Math.round(max)}${'\u00b0'}C`}</div>
+                    <div className="nextDay_min">{`${Math.round(min)}${'\u00b0'}C`}</div>
                 </div>
             </div>
         </div>
+        
+
     )
 }
 

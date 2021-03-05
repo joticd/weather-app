@@ -58,5 +58,19 @@ export const getWeatherMultiData = async (places:string[], setWeatherDataMulti:R
 export const getDay = (dt:number) =>{
     const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];    
     const dayDt = new Date(dt*1000);
-    return days[dayDt.getDay()]
+    return days[dayDt.getDay()];
+}
+
+export const getSinglePlaceTxt = (weatherDataSingle:CityForecastData | null) =>{
+    let singlePlaceTxt = `CURRENT WEATHER TODAY`;
+
+    if(weatherDataSingle){
+        const {dt} = weatherDataSingle.nextDay[0];
+        const today = getDay(dt).toUpperCase();
+        const date = new Date(dt*1000);
+        const time = date.toLocaleTimeString().slice(0, -6);
+        singlePlaceTxt = `CURRENT WEATHER TODAY, ${today}, ${time}`;
+    }
+
+    return singlePlaceTxt;
 }

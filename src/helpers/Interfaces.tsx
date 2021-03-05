@@ -28,6 +28,7 @@ export interface WeatherForcast {
 }
 
 export interface NextDay{
+    dt: number,
     icon:string,
     max:number,
     min:number
